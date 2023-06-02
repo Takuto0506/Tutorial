@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;//追加を使えるようにする
 
 public class PlayerController : MonoBehaviour
 {
+    public int score = 0;//スコア。本当はよくないけどpublicにします。
+    [SerializeField] Text scoreText;//スコア表示用Text
     private float horizontalInput;
     [SerializeField] private float speed;
     [SerializeField] private float xRange;
     [SerializeField] private GameObject projectilePrefab;//食べ物プレハブ（あとで複製）
+
+    private void Start()
+    {
+        SetCountText(0);//初期化
+    }
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
@@ -31,5 +39,12 @@ public class PlayerController : MonoBehaviour
                             projectilePrefab.transform.rotation);
         }
 
+    }
+
+    //SetCountTextをここら辺に書く
+    public void SetCountText(int point)
+    {
+        score += point;//動物からもらったpointを自分のスコアに加算
+        scoreText.text = "Score;" + score.ToString();//【重要】UI更新
     }
 }
